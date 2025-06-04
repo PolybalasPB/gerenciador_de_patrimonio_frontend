@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Formulário de cadastro de aparelho corporativo"
+    />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script type="module" src="/assets/script.js"></script>
+    <title>Cadastro de aparelho</title>
+  </head>
+  <body>
+    <main class="container">
+      <div class="container-inner">
+        <div class="header-container">
+          <img src="assets/img/logo.png" alt="Logo da empresa" class="logo" />
+          <h1>Cadastro de aparelho</h1>
+          <h2>Controle patrimonial - TI</h2>
+        </div>
+
+        <form id="cadastroForm" novalidate autocomplete="on">
+          <fieldset>
+            <legend>Dados Pessoais</legend>
+
+            <div class="form-group">
+              <label for="nome"
+                >Nome completo
+                <span class="required" aria-label="campo obrigatório"
+                  >*</span
+                ></label
+              >
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Digite seu nome completo"
+                required
+                autocomplete="name"
+                aria-required="true"
+                aria-describedby="nome-error"
+              />
+              <span class="error-message" id="nome-error" role="alert"
+                >Por favor, preencha seu nome completo</span
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="cpf"
+                >CPF
+                <span class="required" aria-label="campo obrigatório"
+                  >*</span
+                ></label
+              >
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                placeholder="Digite apenas números"
+                maxlength="11"
+                required
+                autocomplete="off"
+                aria-required="true"
+                aria-describedby="cpf-error"
+                inputmode="numeric"
+              />
+              <span class="error-message" id="cpf-error" role="alert"
+                >Por favor, digite um CPF válido (apenas números)</span
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="setor"
+                >Setor
+                <span class="required" aria-label="campo obrigatório"
+                  >*</span
+                ></label
+              >
+              <select
+                name="setor"
+                id="setor"
+                required
+                aria-required="true"
+                aria-describedby="setor-error"
+              >
+                <option value="">Selecione o setor</option>
+              </select>
+              <span class="error-message" id="setor-error" role="alert"
+                >Por favor, selecione um setor</span
+              >
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Dados do Dispositivo</legend>
+
+            <div class="radio-group">
+              <label class="radio-label">Possui aparelho corporativo?</label>
+              <div class="radio-options">
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="possui_aparelho_sim"
+                    name="possui_aparelho"
+                    value="sim"
+                    aria-controls="modelo-container"
+                  />
+                  <label for="possui_aparelho_sim">Sim</label>
+                </div>
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="possui_aparelho_nao"
+                    name="possui_aparelho"
+                    value="nao"
+                    checked
+                  />
+                  <label for="possui_aparelho_nao">Não</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" id="modelo-container" style="display: none">
+              <label for="modelo"
+                >Modelo do aparelho
+                <span class="required" aria-label="campo obrigatório"
+                  >*</span
+                ></label
+              >
+              <select
+                id="modelo"
+                name="modelo"
+                required
+                aria-required="true"
+                aria-describedby="modelo-error"
+              >
+                <option value="">Selecione o modelo</option>
+              </select>
+              <span class="error-message" id="modelo-error" role="alert"
+                >Por favor, selecione um modelo</span
+              >
+            </div>
+
+            <div class="radio-group">
+              <label class="radio-label">Possui número corporativo?</label>
+              <div class="radio-options">
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="possui_numero_sim"
+                    name="possui_numero"
+                    value="sim"
+                    aria-controls="numero-container"
+                  />
+                  <label for="possui_numero_sim">Sim</label>
+                </div>
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="possui_numero_nao"
+                    name="possui_numero"
+                    value="nao"
+                    checked
+                  />
+                  <label for="possui_numero_nao">Não</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" id="numero-container" style="display: none">
+              <label for="num-corporativo"
+                >Número Corporativo
+                <span class="required" aria-label="campo obrigatório"
+                  >*</span
+                ></label
+              >
+              <input
+                type="text"
+                id="num-corporativo"
+                name="num-corporativo"
+                placeholder="Digite apenas números"
+                maxlength="11"
+                required
+                autocomplete="tel"
+                aria-required="true"
+                aria-describedby="num-error"
+                inputmode="numeric"
+              />
+              <span class="error-message" id="num-error" role="alert"
+                >Por favor, digite um número válido (apenas números)</span
+              >
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Termos e Condições</legend>
+            <div class="checkbox-group terms-group">
+              <div class="checkbox-wrapper">
+                <input
+                  type="checkbox"
+                  id="termos"
+                  name="termos"
+                  required
+                  aria-required="true"
+                  aria-describedby="termos-error"
+                />
+                <label for="termos" id="termos-label">
+                  Declaro que li e aceito os
+                  <button type="button" id="openTermos" class="btn-link">
+                    Termos e Condições
+                  </button>
+                </label>
+              </div>
+              <span class="error-message" id="termos-error" role="alert"
+                >Você precisa aceitar os termos e condições</span
+              >
+            </div>
+
+            <button
+              type="submit"
+              id="btnCadastrar"
+              disabled
+              aria-disabled="true"
+            >
+              Cadastrar
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </main>
+
+    <!-- Modal dos Termos e Condições -->
+    <div
+      id="modalTermos"
+      class="modal"
+      role="dialog"
+      aria-labelledby="termos-titulo"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="termos-titulo">Termos e Condições</h3>
+          <button type="button" class="close" aria-label="Fechar">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="terms-content">
+            <h4>TERMOS E CONDIÇÕES PARA USO DE CELULAR CORPORATIVO:</h4>
+            <ol>
+              <li>
+                <span>Objetivo</span>
+                <p>
+                  Este documento tem como finalidade estabelecer as diretrizes e
+                  responsabilidades relacionadas ao uso de aparelhos celulares
+                  corporativos fornecidos pela empresa Polybalas a seus
+                  colaboradores, visando garantir o uso adequado e responsável
+                  do equipamento.
+                </p>
+              </li>
+              <li>
+                <span>Responsabilidade de Uso</span>
+                <p>
+                  O colaborador compromete-se a utilizar o aparelho celular
+                  fornecido exclusivamente para fins profissionais e de acordo
+                  com as políticas internas da empresa. É responsabilidade do
+                  colaborador zelar pela integridade física e funcional do
+                  equipamento durante todo o período de posse.
+                </p>
+              </li>
+              <li>
+                <span>Devolução do Aparelho</span>
+                <p>
+                  Caso o aparelho tenha sido entregue ao colaborador com caixa,
+                  carregador e/ou outros acessórios, todos esses itens deverão
+                  ser devolvidos nas mesmas condições em que foram recebidos. A
+                  não devolução de qualquer item ou devolução em condições
+                  inadequadas poderá resultar em cobrança proporcional ao valor
+                  do item não retornado.
+                </p>
+              </li>
+              <li>
+                <span>Perda ou Danos</span>
+                <p>
+                  Em caso de perda, quebra ou qualquer dano causado por uso
+                  inadequado ou negligência, o colaborador será responsabilizado
+                  e deverá arcar com uma multa correspondente a 20% (vinte por
+                  cento) do valor de mercado do aparelho no momento do
+                  incidente.
+                </p>
+              </li>
+              <li>
+                <span>Roubo ou Furto</span>
+                <p>
+                  Em caso de roubo ou furto do aparelho, o colaborador deverá
+                  comunicar imediatamente a empresa e providenciar o registro de
+                  um Boletim de Ocorrência (B.O.) junto à autoridade policial. A
+                  cópia do B.O. deverá ser encaminhada ao setor responsável no
+                  prazo de até 3 (três) dias úteis após o ocorrido.
+                </p>
+              </li>
+              <li>
+                <span>Concordância</span>
+                <p>
+                  Ao clicar em "Aceito", o colaborador declara estar ciente e de
+                  acordo com todos os termos e condições descritos acima,
+                  comprometendo-se a cumprir integralmente as responsabilidades
+                  estabelecidas por este documento.
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="downloadTermos" class="btn-download">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="12" y1="18" x2="12" y2="12"></line>
+              <line x1="8" y1="15" x2="16" y2="15"></line>
+            </svg>
+            Baixar PDF
+          </button>
+          <button type="button" class="btn-close">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div
+      id="modalSucesso"
+      class="modal"
+      role="dialog"
+      aria-labelledby="sucesso-titulo"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="sucesso-titulo">Cadastro Concluído!</h3>
+          <button type="button" class="close" aria-label="Fechar">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="success-content">
+            <div class="success-icon" aria-hidden="true">✓</div>
+            <p>Seu aparelho foi cadastrado com sucesso!</p>
+            <p>
+              Por favor, procure o Gestor da TI para fazer a retirada do
+              equipamento.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-close">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Erro -->
+    <div
+      id="modalErro"
+      class="modal"
+      role="dialog"
+      aria-labelledby="erro-titulo"
+      aria-hidden="true"
+    >
+      <div class="modal-content">
+        <div class="modal-header error-header">
+          <h3 id="erro-titulo">Erro no Cadastro</h3>
+          <button type="button" class="close" aria-label="Fechar">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="error-content">
+            <div class="error-icon" aria-hidden="true">❌</div>
+            <p id="mensagemErro">Erro ao cadastrar</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-close">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Campos Faltantes -->
+    <div id="modalCamposFaltantes" class="modal" role="dialog" aria-labelledby="campos-faltantes-titulo" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header warning-header">
+          <h3 id="campos-faltantes-titulo">Campos Obrigatórios</h3>
+          <button type="button" class="close" aria-label="Fechar">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="warning-content">
+            <div class="warning-icon" aria-hidden="true">⚠️</div>
+            <p>Por favor, preencha os seguintes campos:</p>
+            <ul id="lista-campos-faltantes" class="campos-faltantes-lista"></ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-close">OK</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
